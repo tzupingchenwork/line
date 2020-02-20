@@ -81,24 +81,36 @@
                                         'to':  e.sub,
                                         'messages': [{
                                             type:'text',
-                                            text:'哈囉我是 Push Message！'
+                                            text:'哈囉我是 Web Push Message！'
                                         }]
                                 }),
-                                
-                                // 用flow傳
-                                // method: 'post',
-                                // url :'http://125.227.32.42:30001/users/000000000000000000000000/apps/e94fb5898ee3052d4cd3.f9df5344a48b/api/pushMsg?token=ataHDInH5bSc6XrV02&source=editor',
-                                // data: {
-                                //     userID: e.sub,
-                                //     useName: e.name
-                                // },
-                                // success:function(r){
-                                //         console.log(r)
-                                // },
-                                // error:function(xhr){
-                                //         console.log(xhr)
-                                // }
+                                success:function(r){
+                                        console.log(r)
+                                },
+                                error:function(xhr){
+                                        console.log(xhr)
+                                }
                         });
+        var sendFlowMsg =  $.ajax({
+                                // 用flow傳
+                                method: 'post',
+                                url : cors+'http://125.227.32.42:30001/users/000000000000000000000000/apps/e94fb5898ee3052d4cd3.f9df5344a48b/api/pushMsg?token=ataHDInH5bSc6XrV02&source=editor',
+                                headers: {
+                                        'Content-Type': 'application/json; charset=UTF-8',
+                                        'Authorization': 'Bearer ' + CHANNEL_ACCESS_TOKEN,
+                                        'Access-Control-Allow-Origin': '*'
+                                },
+                                data: {
+                                    userID: e.sub,
+                                    useName: e.name
+                                },
+                                success:function(r){
+                                        console.log(r)
+                                },
+                                error:function(xhr){
+                                        console.log(xhr)
+                                }
+                            }),
   
     };  
     </script>
