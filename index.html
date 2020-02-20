@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>我就爛！</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/tzupingchenwork/line/master/imsuck.png" type="image/x-icon" />
     <style>
         .login{
             text-align: center;
@@ -21,7 +22,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
         let lineID = '1653755822';
-        // let redirectUri = 'http://127.0.0.1:5500/linelogin.html';
         let redirectUri = 'https://tzupingchenwork.github.io/line/';
         let lineSecret = 'd24d49d7a2e3f17fd967d1d1ae565099';
         
@@ -42,6 +42,8 @@
         console.log(code)
         let form = document.getElementById("form")
             if(code){
+                $('#loginBtn').hide();
+                $('.loginPic').show();
                 //JWT轉換
                 let b64DecodeUnicode = str => decodeURIComponent(Array.prototype.map.call(atob(str), c =>'%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''))
                 let parseJwt = token =>JSON.parse(b64DecodeUnicode(token.split('.')[1].replace('-', '+').replace('_', '/')))
@@ -122,12 +124,13 @@
 </head>
 <body>
     <div class="login">
-            <button onclick="LineAuth()" style="background-image:url('https://raw.githubusercontent.com/tzupingchenwork/line/master/btn_login_base.png'); width:152px;height:44px; border:none; outline:none">
+            <button onclick="LineAuth()" style="background-image:url('https://raw.githubusercontent.com/tzupingchenwork/line/master/btn_login_base.png'); width:152px;height:44px; border:none; outline:none" id="loginBtn">
             </button>
     
             <form id="form" action="parse">
                 <textarea name="out"></textarea>
             </form>
+            <img src="https://raw.githubusercontent.com/tzupingchenwork/line/master/imsuck2.jpeg" alt="" style="display: none" class="loginPic">
     </div>
 </body>
 </html>
