@@ -26,7 +26,7 @@
         let lineSecret = 'd24d49d7a2e3f17fd967d1d1ae565099';
         
         function LineAuth() {
-            let URL = 'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id='+ lineID +'&redirect_uri=' + redirectUri +'&state=abcde&scope=openid%20profile';
+            let URL = 'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id='+ lineID +'&redirect_uri=' + redirectUri +'&state=abcde＆bot_prompt=aggressive&scope=openid%20profile';
             window.location.href = URL;
             // 跳頁
             // window.open(URL, "_blank", "width=800px,height=600px");
