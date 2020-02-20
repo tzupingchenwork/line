@@ -66,11 +66,11 @@
                 form.out.value = '請先登入line';
             }
         }
-
+        const cors = 'https://cors-anywhere.herokuapp.com/'; 
         function doPost(e) {
         var CHANNEL_ACCESS_TOKEN = 'BV52++OTh72M4Vwj5uSD+pJzUtw8z3XRXxYTrejOcdkOdcAlm7ulZe+SUsJhKoYaYCBMkigVHymdzepBpRQwntXyh15idps3iF+k0cg0y5Ia5QYsurwnBAozPgzKKj/ubYIRDkzxVHOMdsHRUCJmUgdB04t89/1O/w1cDnyilFU=';
         var sendMsg =  $.ajax({
-                                url:'https://api.line.me/v2/bot/message/push', 
+                                url: cors+'https://api.line.me/v2/bot/message/push', 
                                 method: 'post',
                                 headers: {
                                         'Content-Type': 'application/json; charset=UTF-8',
