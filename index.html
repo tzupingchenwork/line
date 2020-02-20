@@ -75,6 +75,7 @@
                                 headers: {
                                         'Content-Type': 'application/json; charset=UTF-8',
                                         'Authorization': 'Bearer ' + CHANNEL_ACCESS_TOKEN,
+                                        'Access-Control-Allow-Origin': '*'
                                 },
                                 data: JSON.stringify({
                                         'to':  e.sub,
