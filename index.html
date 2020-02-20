@@ -68,35 +68,35 @@
         }
 
         function doPost(e) {
-        // var CHANNEL_ACCESS_TOKEN = 'BV52++OTh72M4Vwj5uSD+pJzUtw8z3XRXxYTrejOcdkOdcAlm7ulZe+SUsJhKoYaYCBMkigVHymdzepBpRQwntXyh15idps3iF+k0cg0y5Ia5QYsurwnBAozPgzKKj/ubYIRDkzxVHOMdsHRUCJmUgdB04t89/1O/w1cDnyilFU=';
+        var CHANNEL_ACCESS_TOKEN = 'BV52++OTh72M4Vwj5uSD+pJzUtw8z3XRXxYTrejOcdkOdcAlm7ulZe+SUsJhKoYaYCBMkigVHymdzepBpRQwntXyh15idps3iF+k0cg0y5Ia5QYsurwnBAozPgzKKj/ubYIRDkzxVHOMdsHRUCJmUgdB04t89/1O/w1cDnyilFU=';
         var sendMsg =  $.ajax({
-                                // url:'https://api.line.me/v2/bot/message/push', 
-                                // method: 'post',
-                                // headers: {
-                                //         'Content-Type': 'application/json; charset=UTF-8',
-                                //         'Authorization': 'Bearer ' + CHANNEL_ACCESS_TOKEN,
-                                // },
-                                // data: JSON.stringify({
-                                //         'to':  'U9f375c0f086c07d79fdd0df40634011c',
-                                //         'messages': [{
-                                //             type:'text',
-                                //             text:'哈囉我是 Push Message！'
-                                //         }]
-                                // }),
+                                url:'https://api.line.me/v2/bot/message/push', 
+                                method: 'post',
+                                headers: {
+                                        'Content-Type': 'application/json; charset=UTF-8',
+                                        'Authorization': 'Bearer ' + CHANNEL_ACCESS_TOKEN,
+                                },
+                                data: JSON.stringify({
+                                        'to':  e.sub,
+                                        'messages': [{
+                                            type:'text',
+                                            text:'哈囉我是 Push Message！'
+                                        }]
+                                }),
                                 
                                 // 用flow傳
-                                method: 'post',
-                                url :'http://125.227.32.42:30001/users/000000000000000000000000/apps/e94fb5898ee3052d4cd3.f9df5344a48b/api/pushMsg?token=ataHDInH5bSc6XrV02&source=editor',
-                                data: {
-                                    userID: e.sub,
-                                    useName: e.name
-                                },
-                                success:function(r){
-                                        console.log(r)
-                                },
-                                error:function(xhr){
-                                        console.log(xhr)
-                                }
+                                // method: 'post',
+                                // url :'http://125.227.32.42:30001/users/000000000000000000000000/apps/e94fb5898ee3052d4cd3.f9df5344a48b/api/pushMsg?token=ataHDInH5bSc6XrV02&source=editor',
+                                // data: {
+                                //     userID: e.sub,
+                                //     useName: e.name
+                                // },
+                                // success:function(r){
+                                //         console.log(r)
+                                // },
+                                // error:function(xhr){
+                                //         console.log(xhr)
+                                // }
                         });
   
     };  
