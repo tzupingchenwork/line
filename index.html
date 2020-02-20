@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .login{
+            text-align: center;
+            height: 50vh;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        let lineID = '1653755822';
+        let redirectUri = 'http://127.0.0.1:5500/linelogin.html';
+        let lineSecret = 'd24d49d7a2e3f17fd967d1d1ae565099';
+        
+        function LineAuth() {
+            let URL = 'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id='+ lineID +'&redirect_uri=' + redirectUri +'&state=abcde&scope=openid%20profile';
+            window.location.href = URL;
+            // 跳頁
+            // window.open(URL, "_blank", "width=800px,height=600px");
+        }
+        window.onload = function(){
+            doGet();
+        }
+        function doGet() {
+        // 用授權碼取得 token
+        let getUrlString = location.href;
+        let url = new URL(getUrlString);
+        let code = url.searchParams.get('code'); // 取得授權碼
+        console.log(code)
+        let form = document.getElementById("form")
+            if(code){
+            //JWT轉換
+            let b64DecodeUnicode = str => decodeURIComponent(Array.prototype.map.call(atob(str), c =>'%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''))
+            let parseJwt = token =>JSON.parse(b64DecodeUnicode(token.split('.')[1].replace('-', '+').replace('_', '/')))
+            let responseToken = $.ajax({
+                                        url:'https://api.line.me/oauth2/v2.1/token', 
+                                        method: 'post',
+                                        data: 'grant_type=authorization_code&code=' + code + '&redirect_uri=' + redirectUri + '&client_id=' + lineID + '&client_secret=' + lineSecret,
+                                        success:function(r){
+                                            let idToken = parseJwt(r.id_token);
+                                            var userID = idToken.sub
+                                            // window.alert(idToken.name+'歡迎登入')
+                                            form.out.value = JSON.stringify(idToken);
+                                            doPost(idToken);
+                                        },
+                                        error:function(xhr){
+                                            console.log(xhr)
+                                            form.out.value = '登入失敗';
+                                            window.location.href = redirectUri;
+                                        }
+                                });
+            }else{
+                form.out.value = '請先登入line';
+            }
+        }
+
+        function doPost(e) {
+        // var CHANNEL_ACCESS_TOKEN = 'BV52++OTh72M4Vwj5uSD+pJzUtw8z3XRXxYTrejOcdkOdcAlm7ulZe+SUsJhKoYaYCBMkigVHymdzepBpRQwntXyh15idps3iF+k0cg0y5Ia5QYsurwnBAozPgzKKj/ubYIRDkzxVHOMdsHRUCJmUgdB04t89/1O/w1cDnyilFU=';
+        var sendMsg =  $.ajax({
+                                // url:'https://api.line.me/v2/bot/message/push', 
+                                // method: 'post',
+                                // headers: {
+                                //         'Content-Type': 'application/json; charset=UTF-8',
+                                //         'Authorization': 'Bearer ' + CHANNEL_ACCESS_TOKEN,
+                                // },
+                                // data: JSON.stringify({
+                                //         'to':  'U9f375c0f086c07d79fdd0df40634011c',
+                                //         'messages': [{
+                                //             type:'text',
+                                //             text:'哈囉我是 Push Message！'
+                                //         }]
+                                // }),
+                                
+                                // 用flow傳
+                                method: 'post',
+                                url :'http://125.227.32.42:30001/users/000000000000000000000000/apps/e94fb5898ee3052d4cd3.f9df5344a48b/api/pushMsg?token=ataHDInH5bSc6XrV02&source=editor',
+                                data: {
+                                    userID: e.sub,
+                                    useName: e.name
+                                },
+                                success:function(r){
+                                        console.log(r)
+                                },
+                                error:function(xhr){
+                                        console.log(xhr)
+                                }
+                        });
+  
+    };  
+    </script>
+</head>
+<body>
+    <div class="login">
+            <button onclick="LineAuth()" style="background-image:url('/btn_login_base.png'); width:152px;height:44px; border:none; outline:none">
+            </button>
+    
+            <form id="form" action="parse">
+                <textarea name="out"></textarea>
+            </form>
+    </div>
+</body>
+</html>
